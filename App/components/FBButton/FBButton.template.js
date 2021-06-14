@@ -12,6 +12,7 @@ const FBButtonTemplate = ({ login }) => {
   return (
       <Button
         style = {styles.socialBtn}
+        color="blue"
         mode="contained" 
         raised 
         onPress={login} 

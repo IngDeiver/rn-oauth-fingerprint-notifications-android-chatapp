@@ -4,6 +4,7 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 const FBLogout = () => {
   LoginManager.logOut();
@@ -78,12 +79,40 @@ const GoogleLogout = () => {
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      resolve(true)
+      resolve(true);
     } catch (error) {
-      reject(error)
+      reject(error);
     }
   });
 };
+
+const BiometricLogin = () => {
+  return new Promise((resolve, reject) => {
+    FingerprintScanner.authenticate({
+      title: 'Authenticate',
+      description: 'Login with a biometric medium',
+      onAttempt: (err) => reject(err)
+    })
+      .then( _ =>  {
+        realeaseBiometric()
+        resolve(true)
+      })
+      .catch(err => reject(err));
+  });
+};
+
+const isSensorAvailable = () => {
+  return new Promise((resolve, reject) => {
+    FingerprintScanner
+    .isSensorAvailable()
+    .then(_ => resolve(true))
+    .catch(error => reject(error));
+  })
+}
+
+const realeaseBiometric = () => {
+  FingerprintScanner.release()
+}
 
 export {
   FBLogout,
@@ -91,5 +120,8 @@ export {
   FBLogin,
   GooleLogin,
   getGoogleCurrentProfile,
-  GoogleLogout
+  GoogleLogout,
+  BiometricLogin,
+  isSensorAvailable,
+  realeaseBiometric
 };
