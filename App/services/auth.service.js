@@ -23,7 +23,7 @@ const FBLogin = () => {
     LoginManager.logInWithPermissions(['public_profile', 'email'])
       .then(
         result => {
-          if (result.isCancelled) reosolve(null);
+          if (result.isCancelled) resolve(null);
           else {
             getFBCurrentProfile()
               .then(profile => resolve(profile))
@@ -97,7 +97,10 @@ const BiometricLogin = () => {
         realeaseBiometric()
         resolve(true)
       })
-      .catch(err => reject(err));
+      .catch(err => {
+        realeaseBiometric()
+        reject(err)
+      });
   });
 };
 

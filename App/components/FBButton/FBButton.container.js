@@ -4,11 +4,18 @@ import { FBLogin } from '../../services/auth.service'
 
 
 
-const FBButtonContainer = () => {
+const FBButtonContainer = ({ onLogin }) => {
   
   const login = useCallback(() => {
     FBLogin()
-    .then(profile => console.log(Object.keys(profile)))
+    .then(profile => {
+      if(profile) onLogin({ 
+        name: profile.name,
+        push_id: '',
+        photo: profile.imageURL,
+        id:profile.userID
+      })
+    })
     .catch(err => console.log(err))
   }, []);
   

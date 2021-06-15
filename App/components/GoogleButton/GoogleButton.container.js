@@ -2,11 +2,18 @@ import React, { useCallback } from 'react';
 import GoogleButtonTemplate from './GoogleButton.tempalate';
 import { GooleLogin } from '../../services/auth.service'
 
-const GoogleButtonContainer = () => {
+const GoogleButtonContainer = ({ onLogin }) => {
   
   const login = useCallback(() => {
     GooleLogin()
-    .then(userInfo => console.log(userInfo))
+    .then(userInfo => {
+      onLogin({
+        name: userInfo.user.name,
+        push_id: '',
+        photo: userInfo.user.photo,
+        id: userInfo.user.id
+      })
+    })
     .catch(err => console.log(err))
     
   }, []);

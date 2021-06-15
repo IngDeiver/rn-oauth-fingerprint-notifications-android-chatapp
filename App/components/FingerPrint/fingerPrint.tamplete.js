@@ -12,13 +12,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const FingerPrintTemplate = ({autthenticate, visible, hideDialog}) => {
+const FingerPrintTemplate = ({ autthenticate, visible, hideDialog, login }) => {
   const [biometricSensor, setBiometricSensor] = React.useState(null);
   const [username, setUsername] = React.useState('');
 
   React.useEffect(() => {
     if (!biometricSensor) {
-      isSensorAvailable().then(type => setBiometricSensor(type));
+      isSensorAvailable().then(type => setBiometricSensor(type))
+      .catch(err => console.log(err));
     }
     return () => realeaseBiometric();
   }, []);
@@ -46,7 +47,7 @@ const FingerPrintTemplate = ({autthenticate, visible, hideDialog}) => {
             </Dialog.Content>
             <Dialog.Actions>
               <Button onPress={hideDialog}>Cancel</Button>
-              <Button disabled={username === ''}>Done</Button>
+              <Button onPress={() => login(username)} disabled={username.trim() === ''}>Done</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
@@ -55,4 +56,4 @@ const FingerPrintTemplate = ({autthenticate, visible, hideDialog}) => {
   return null;
 };
 
-export default FingerPrintTemplate;
+export default React.memo(FingerPrintTemplate);

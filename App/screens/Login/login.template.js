@@ -18,20 +18,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const LoginTemplate = () => {
+const LoginTemplate = ({ onLogin }) => {
   return (
     <ImageBackground
       style={styles.background}
       source={require('../../assets/background.jpg')}>
       <Provider>
         <View style={styles.container}>
-          <FBButton />
-          <GoogleButton />
-          <FingerPrint />
+          <FBButton onLogin={onLogin} />
+          <GoogleButton onLogin={onLogin} />
+          <FingerPrint onLogin={onLogin} />
         </View>
       </Provider>
     </ImageBackground>
   );
 };
 
-export default LoginTemplate;
+export default React.memo(LoginTemplate);
