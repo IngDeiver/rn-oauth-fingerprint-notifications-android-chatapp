@@ -11,8 +11,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import StackNavigation from './navigation/stack.navigator';
 import {PersistGate} from 'redux-persist/integration/react';
 import { persistor } from './redux/store'
-import { Text } from 'react-native';
 import { ActivityIndicator, Colors } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 
 GoogleSignin.configure();
 
@@ -24,6 +24,7 @@ const App = () => {
       persistor={persistor}>
         <NavigationContainer>
           <StackNavigation />
+          <Toast ref={(ref) => Toast.setRef(ref)} />
         </NavigationContainer>
       </PersistGate>
     </Provider>

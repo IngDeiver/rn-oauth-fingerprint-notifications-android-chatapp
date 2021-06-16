@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import { createSelector } from '@reduxjs/toolkit'
+import { useSelector } from 'react-redux';
 
 const styles = StyleSheet.create({
   socialBtn: {
@@ -8,7 +10,12 @@ const styles = StyleSheet.create({
   }
 });
 
-const FBButtonTemplate = ({ login, isLogin }) => {
+const authSelecetor = () => createSelector(state => state.auth, auth => auth)
+
+const FBButtonTemplate = ({ login }) => {
+  const authSelectorMemorized = useMemo(authSelecetor, [])
+  const auth = useSelector(authSelectorMemorized)
+
   return (
       <Button
         style = {styles.socialBtn}
@@ -17,7 +24,7 @@ const FBButtonTemplate = ({ login, isLogin }) => {
         raised 
         onPress={login} 
         icon="facebook"
-        disabled={isLogin}>
+        disabled={auth?.state !== ''}>
         Login with Facebook
       </Button>
   );

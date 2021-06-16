@@ -1,6 +1,8 @@
-import React from 'react';
+import React,  { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import { createSelector } from '@reduxjs/toolkit'
+import { useSelector } from 'react-redux';
 
 const styles = StyleSheet.create({
   socialBtn: {
@@ -8,7 +10,12 @@ const styles = StyleSheet.create({
   }
 });
 
-const GooleButtonTemplate = ({ login, isLogin }) => {
+const authSelecetor = () => createSelector(state => state.auth, auth => auth)
+
+const GooleButtonTemplate = ({ login }) => {
+  const authSelectorMemorized = useMemo(authSelecetor, [])
+  const auth = useSelector(authSelectorMemorized)
+
   return (
       <Button
         style = {styles.socialBtn}
@@ -17,7 +24,7 @@ const GooleButtonTemplate = ({ login, isLogin }) => {
         raised 
         onPress={login} 
         icon="google"
-        disabled={isLogin}>
+        disabled={auth?.state !== ''}>
         Login with Google
       </Button>
   );

@@ -28,6 +28,7 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.3.0",
     "react-native-sensitive-info": "^5.5.8",
+    "react-native-toast-message": "^1.4.9",
     "react-native-user-avatar": "^1.0.7",
     "react-native-vector-icons": "^8.1.0",
     "react-redux": "^7.2.4",

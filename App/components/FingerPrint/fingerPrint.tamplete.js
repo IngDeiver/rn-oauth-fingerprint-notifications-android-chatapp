@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
   isSensorAvailable,
   realeaseBiometric,
 } from '../../services/auth.service';
 import { Button, Dialog, Portal, TextInput} from 'react-native-paper';
+import { createSelector } from '@reduxjs/toolkit'
+import { useSelector } from 'react-redux';
 
 const styles = StyleSheet.create({
   socialBtn: {
@@ -12,9 +14,14 @@ const styles = StyleSheet.create({
   },
 });
 
+const authSelecetor = () => createSelector(state => state.auth, auth => auth)
+
 const FingerPrintTemplate = ({ autthenticate, visible, hideDialog, login }) => {
   const [biometricSensor, setBiometricSensor] = React.useState(null);
   const [username, setUsername] = React.useState('');
+
+  const authSelectorMemorized = useMemo(authSelecetor, [])
+  const auth = useSelector(authSelectorMemorized)
 
   React.useEffect(() => {
     if (!biometricSensor) {
@@ -32,7 +39,8 @@ const FingerPrintTemplate = ({ autthenticate, visible, hideDialog, login }) => {
           mode="contained"
           raised
           onPress={autthenticate}
-          icon="fingerprint">
+          icon="fingerprint"
+          disabled={auth?.state !== ''}>
           Login with fingerprint
         </Button>
 

@@ -18,16 +18,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const LoginTemplate = ({ onLogin }) => {
+const LoginTemplate = () => {
   return (
     <ImageBackground
       style={styles.background}
       source={require('../../assets/background.jpg')}>
       <Provider>
         <View style={styles.container}>
-          <FBButton onLogin={onLogin} />
-          <GoogleButton onLogin={onLogin} />
-          <FingerPrint onLogin={onLogin} />
+          <FBButton/>
+          <GoogleButton />
+          <FingerPrint />
         </View>
       </Provider>
     </ImageBackground>

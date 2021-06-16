@@ -1,35 +1,16 @@
 import React, {useCallback} from 'react';
 import FBButtonTemplate from './FBButton.template';
-import {FBLogin} from '../../services/auth.service';
+import { loginThunk } from '../../redux/reducers/auth.reducer'
+import { useDispatch } from 'react-redux';
 
-const FBButtonContainer = ({ onLogin }) => {
-  const [isLogin, setIsLogin] = React.useState(false);
+const FBButtonContainer = () => {
 
+  const dispatch = useDispatch()
   const login = useCallback(() => {
-    setIsLogin(true);
-    FBLogin()
-      .then(profile => {
-        setIsLogin(false);
-        if (profile) {
-          onLogin({
-            name: profile.name,
-            push_id: '',
-            photo: profile.imageURL,
-            id: profile.userID,
-            method: 'FB',
-            accessToken: profile.accessToken,
-          });
-        } else {
-          console.log('login with facebook cancelled');
-        }
-      })
-      .catch(err => {
-        setIsLogin(false);
-        console.log(err);
-      });
+    dispatch(loginThunk({ method: 'FB' }))
   }, []);
 
-  return <FBButtonTemplate login={login} isLogin={isLogin} />;
+  return <FBButtonTemplate login={login} />;
 };
 
 export default FBButtonContainer;

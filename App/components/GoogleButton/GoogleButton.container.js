@@ -1,35 +1,17 @@
 import React, { useCallback } from 'react';
 import GoogleButtonTemplate from './GoogleButton.tempalate';
-import { GooleLogin } from '../../services/auth.service'
+import { loginThunk } from '../../redux/reducers/auth.reducer'
+import { useDispatch } from 'react-redux';
 
-const GoogleButtonContainer = ({ onLogin }) => {
-
-  const [isLogin, setIsLogin] = React.useState(false);
-
+const GoogleButtonContainer = () => {
+  const dispatch = useDispatch()
   const login = useCallback(() => {
-    setIsLogin(true)
-    GooleLogin()
-    .then(userInfo => {
-      setIsLogin(false)
-      onLogin({
-        name: userInfo.user.name,
-        push_id: '',
-        photo: userInfo.user.photo,
-        id: userInfo.user.id,
-        method: 'GOOGLE',
-        accessToken: userInfo.accessToken
-      })
-    })
-    .catch(err => {
-      setIsLogin(false)
-      console.log(err)
-    })
-    
+    dispatch(loginThunk({ method: 'GOOGLE' }))
   }, []);
   
  
   
-  return <GoogleButtonTemplate login={login} isLogin={isLogin} />;
+  return <GoogleButtonTemplate login={login} />;
 };
 
 export default GoogleButtonContainer;
