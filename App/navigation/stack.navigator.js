@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createSelector } from '@reduxjs/toolkit'
 
-import { Home, Login } from '../screens';
+import {  Login } from '../screens';
 import { useSelector } from 'react-redux';
+import Home from './drawer.navigator'
 
 const Stack = createStackNavigator();
 const authSelecetor = () => createSelector(state => state.auth, auth => auth)

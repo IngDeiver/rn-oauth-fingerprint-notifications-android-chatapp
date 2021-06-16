@@ -21,7 +21,8 @@ const FingerPrintContainer = ({ onLogin }) => {
       name: username,
       push_id: '',
       photo: null,
-      id: null
+      id: null,
+      method: 'FINGER_PRINT'
     })
     hideDialog()
   })

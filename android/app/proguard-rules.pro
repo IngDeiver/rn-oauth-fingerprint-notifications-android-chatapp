@@ -19,4 +19,6 @@
 // DEPRECATED in 4.0.0
 -keep class com.samsung.android.sdk.** { *; }
 -dontwarn com.samsung.android.sdk.**
+-keep public class com.horcrux.svg.** {*;}
+
 

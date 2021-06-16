@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const FBButtonTemplate = ({ login }) => {
+const FBButtonTemplate = ({ login, isLogin }) => {
   return (
       <Button
         style = {styles.socialBtn}
@@ -16,7 +16,8 @@ const FBButtonTemplate = ({ login }) => {
         mode="contained" 
         raised 
         onPress={login} 
-        icon="facebook">
+        icon="facebook"
+        disabled={isLogin}>
         Login with Facebook
       </Button>
   );

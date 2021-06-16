@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const GooleButtonTemplate = ({ login }) => {
+const GooleButtonTemplate = ({ login, isLogin }) => {
   return (
       <Button
         style = {styles.socialBtn}
@@ -16,7 +16,8 @@ const GooleButtonTemplate = ({ login }) => {
         mode="contained" 
         raised 
         onPress={login} 
-        icon="google">
+        icon="google"
+        disabled={isLogin}>
         Login with Google
       </Button>
   );

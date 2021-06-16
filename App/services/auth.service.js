@@ -1,5 +1,5 @@
-import {LoginManager} from 'react-native-fbsdk-next';
-import {Profile} from 'react-native-fbsdk-next';
+import { LoginManager } from 'react-native-fbsdk-next';
+import { Profile } from 'react-native-fbsdk-next';
 import {
   GoogleSignin,
   statusCodes,
@@ -7,7 +7,12 @@ import {
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 const FBLogout = () => {
-  LoginManager.logOut();
+  return new Promise((resolve, reject) => {
+    try {
+      LoginManager.logOut();
+      resolve(true)
+    } catch (error) { reject(error)}
+  });
 };
 
 const getFBCurrentProfile = () => {
@@ -23,7 +28,9 @@ const FBLogin = () => {
     LoginManager.logInWithPermissions(['public_profile', 'email'])
       .then(
         result => {
-          if (result.isCancelled) resolve(null);
+          if (result.isCancelled) {
+            resolve(null)
+          }
           else {
             getFBCurrentProfile()
               .then(profile => resolve(profile))
@@ -91,31 +98,30 @@ const BiometricLogin = () => {
     FingerprintScanner.authenticate({
       title: 'Authenticate',
       description: 'Login with a biometric medium',
-      onAttempt: (err) => reject(err)
+      onAttempt: err => reject(err),
     })
-      .then( _ =>  {
-        realeaseBiometric()
-        resolve(true)
+      .then(_ => {
+        realeaseBiometric();
+        resolve(true);
       })
       .catch(err => {
-        realeaseBiometric()
-        reject(err)
+        realeaseBiometric();
+        reject(err);
       });
   });
 };
 
 const isSensorAvailable = () => {
   return new Promise((resolve, reject) => {
-    FingerprintScanner
-    .isSensorAvailable()
-    .then(_ => resolve(true))
-    .catch(error => reject(error));
-  })
-}
+    FingerprintScanner.isSensorAvailable()
+      .then(_ => resolve(true))
+      .catch(error => reject(error));
+  });
+};
 
 const realeaseBiometric = () => {
-  FingerprintScanner.release()
-}
+  FingerprintScanner.release();
+};
 
 export {
   FBLogout,
@@ -126,5 +132,5 @@ export {
   GoogleLogout,
   BiometricLogin,
   isSensorAvailable,
-  realeaseBiometric
+  realeaseBiometric,
 };
