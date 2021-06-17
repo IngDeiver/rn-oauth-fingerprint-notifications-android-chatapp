@@ -1,7 +1,7 @@
 import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {Home} from '../screens';
-import {ContentDrawer} from '../components';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Home } from '../screens';
+import { ContentDrawer } from '../components';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Drawer = createDrawerNavigator();
@@ -17,7 +17,6 @@ export default function DrawerNavigator() {
       <Drawer.Screen
         name="Home"
         options={{
-          drawerLabel: 'Chats',
           drawerIcon: ({ color, size }) => (
             <Icon name="wechat" size={size} color={color}/>
           ),
