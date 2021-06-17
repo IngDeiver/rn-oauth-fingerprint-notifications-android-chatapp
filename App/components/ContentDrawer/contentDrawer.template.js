@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor: '#f5f6fa'
   },
   avatar: {
     display: 'flex',

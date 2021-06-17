@@ -20,7 +20,9 @@ const StackNavigator = () => {
       }}>
           {
             auth.name ? 
-            <Stack.Screen name="Home" component={Home} /> 
+            <> 
+              <Stack.Screen name="Home" component={Home} /> 
+            </>
             : 
             <Stack.Screen name="Login" component={Login} />
           }
